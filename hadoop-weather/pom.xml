@@ -28,7 +28,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/main/assembly/jar-with-dependencies.xml</descriptor>
+                        <descriptor>src/main/assembly/job.xml</descriptor>
                     </descriptors>
                     <archive>
                         <manifest>
