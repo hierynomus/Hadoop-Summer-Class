@@ -28,7 +28,7 @@ public class PrecipitationPerMonthMapperTest {
                        .run();
 
         assertThat(output.size(), is(1));
-        assertThat(output.get(0).getFirst(), equalTo(new Text("20100106")));
+        assertThat(output.get(0).getFirst(), equalTo(new Text("240,201001")));
         assertThat(output.get(0).getSecond(), equalTo(new LongWritable(28)));
     }
 
@@ -56,7 +56,7 @@ public class PrecipitationPerMonthMapperTest {
                        .run();
 
         assertThat(output.size(), is(1));
-        assertThat(output.get(0).getFirst(), equalTo(new Text("20100101")));
+        assertThat(output.get(0).getFirst(), equalTo(new Text("240,201001")));
         assertThat(output.get(0).getSecond(), equalTo(new LongWritable(0)));
     }
 }

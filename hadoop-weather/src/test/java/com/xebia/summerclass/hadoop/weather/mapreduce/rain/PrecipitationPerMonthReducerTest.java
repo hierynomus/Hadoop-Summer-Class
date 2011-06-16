@@ -23,13 +23,13 @@ public class PrecipitationPerMonthReducerTest {
 
     @Test
     public void shouldSumAllCounters() throws Exception {
-        output = driver.withInputKey(new Text("20100101"))
+        output = driver.withInputKey(new Text("420,201001"))
                        .withInputValue(new LongWritable(1))
                        .withInputValue(new LongWritable(2))
                        .run();
 
         assertThat(output.size(), is(1));
-        assertThat(output.get(0).getFirst(), equalTo(new Text("20100101")));
+        assertThat(output.get(0).getFirst(), equalTo(new Text("420,201001")));
         assertThat(output.get(0).getSecond(), equalTo(new LongWritable(3)));
     }
 }

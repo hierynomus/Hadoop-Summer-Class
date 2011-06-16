@@ -12,6 +12,7 @@ public class PrecipitationPerMonthMapper extends Mapper<LongWritable, Text, Text
     private static final Logger LOG = Logger.getLogger(PrecipitationPerMonthMapper.class);
 
     private static String COMMENT_PREFIX = "#";
+    private static int STN = 0;
     private static int YYYYMMDD = 1;
     private static int RH = 22;
     private static int EXPECTED_FIELDS = 41;
@@ -25,7 +26,6 @@ public class PrecipitationPerMonthMapper extends Mapper<LongWritable, Text, Text
 
             String[] values = lineString.split(",\\s*");
             if (values.length != EXPECTED_FIELDS) {
-                LOG.warn("invalid length " + values.length);
                 return;
             }
 
@@ -34,7 +34,9 @@ public class PrecipitationPerMonthMapper extends Mapper<LongWritable, Text, Text
                 precipitation = 0;
             }
 
-            context.write(new Text(values[YYYYMMDD]), new LongWritable(precipitation));
+            Text key = new Text(values[STN].trim() + "," + values[YYYYMMDD].substring(0, 6));
+
+            context.write(key, new LongWritable(precipitation));
         } catch (Exception e) {
             LOG.warn("Exception caught during call to map(): ", e);
         }
