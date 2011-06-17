@@ -29,8 +29,14 @@ public class KnmiLineParser {
     }
 
     public KnmiLineType parse(String line) {
+        resetState();
+
         if (line.startsWith(COMMENT_PREFIX)) {
             return KnmiLineType.COMMENT;
+        }
+
+        if (line.isEmpty()) {
+            return KnmiLineType.EMPTY;
         }
 
         this.fields = line.split(",\\s*");
@@ -39,6 +45,10 @@ public class KnmiLineParser {
         }
 
         return KnmiLineType.DATA;
+    }
+
+    private void resetState() {
+        this.fields = null;
     }
 
     public String getStation() {

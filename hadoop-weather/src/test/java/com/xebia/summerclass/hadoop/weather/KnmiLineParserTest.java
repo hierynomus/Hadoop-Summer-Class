@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import com.xebia.summerclass.hadoop.weather.KnmiLineParser.KnmiLineType;
 
-
 public class KnmiLineParserTest {
 
     private KnmiLineParser parser;
@@ -32,6 +31,20 @@ public class KnmiLineParserTest {
         String line = "# THESE DATA CAN BE USED FREELY PROVIDED THAT THE FOLLOWING SOURCE IS ACKNOWLEDGED:";
         KnmiLineType result = this.parser.parse(line);
         assertEquals(KnmiLineType.COMMENT, result);
+    }
+
+    @Test
+    public void shouldParseEmptyLine() {
+        String line = "";
+        KnmiLineType result = this.parser.parse(line);
+        assertEquals(KnmiLineType.EMPTY, result);
+    }
+
+    @Test
+    public void shouldHandleUnparsableLine() {
+        String line = "1,2,3";
+        KnmiLineType result = this.parser.parse(line);
+        assertEquals(KnmiLineType.UNPARSABLE, result);
     }
 
 }
