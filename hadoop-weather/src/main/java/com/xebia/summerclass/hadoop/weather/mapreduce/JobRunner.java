@@ -9,7 +9,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.xebia.summerclass.hadoop.weather.mapreduce.rain.PrecipitationPerMonth;
+import com.xebia.summerclass.hadoop.weather.mapreduce.rain.TotalPrecipitationPerMonth;
 
 
 public class JobRunner extends Configured implements Tool {
@@ -27,8 +27,8 @@ public class JobRunner extends Configured implements Tool {
 
         Job job;
 
-        if (args[0].equals(PrecipitationPerMonth.jobName())) {
-            job = PrecipitationPerMonth.createJob(getConf(), new Path(args[1]), new Path(args[2]));
+        if (args[0].equals(TotalPrecipitationPerMonth.jobName())) {
+            job = TotalPrecipitationPerMonth.createJob(getConf(), new Path(args[1]), new Path(args[2]));
         } else {
             printUsageInfo();
             return 1;
@@ -47,7 +47,7 @@ public class JobRunner extends Configured implements Tool {
         out.println("Available Jobs:");
         out.println();
 
-        PrecipitationPerMonth.printJobDescription();
+        TotalPrecipitationPerMonth.printJobDescription();
         out.println();
 
         ToolRunner.printGenericCommandUsage(err);

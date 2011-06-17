@@ -12,13 +12,13 @@ import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PrecipitationPerMonthReducerTest {
+public class TotalPrecipitationPerMonthReducerTest {
     private ReduceDriver<Text, LongWritable, Text, LongWritable> driver;
     private List<Pair<Text, LongWritable>> output;
 
     @Before
     public void setUp() throws Exception {
-        driver = new ReduceDriver<Text, LongWritable, Text, LongWritable>(new PrecipitationPerMonthReducer());
+        driver = new ReduceDriver<Text, LongWritable, Text, LongWritable>(new TotalPrecipitationPerMonthReducer());
     }
 
     @Test

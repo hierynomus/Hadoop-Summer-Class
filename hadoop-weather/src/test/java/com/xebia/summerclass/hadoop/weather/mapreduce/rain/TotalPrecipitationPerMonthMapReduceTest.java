@@ -12,7 +12,7 @@ import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PrecipitationPerMonthMapReduceTest {
+public class TotalPrecipitationPerMonthMapReduceTest {
     private MapReduceDriver<LongWritable, Text, Text, LongWritable, Text, LongWritable> driver;
     private List<Pair<Text, LongWritable>> output;
 
@@ -20,7 +20,7 @@ public class PrecipitationPerMonthMapReduceTest {
     public void setUp() throws Exception {
         driver = new MapReduceDriver<LongWritable, Text, Text, LongWritable, Text, LongWritable>()
             .withMapper(new PrecipitationPerMonthMapper())
-            .withReducer(new PrecipitationPerMonthReducer());
+            .withReducer(new TotalPrecipitationPerMonthReducer());
     }
 
     @Test

@@ -7,8 +7,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.log4j.Logger;
 
-public class PrecipitationPerMonthReducer extends Reducer<Text, LongWritable, Text, LongWritable>{
-    private static final Logger LOG = Logger.getLogger(PrecipitationPerMonthReducer.class);
+public class TotalPrecipitationPerMonthReducer extends Reducer<Text, LongWritable, Text, LongWritable>{
+    private static final Logger LOG = Logger.getLogger(TotalPrecipitationPerMonthReducer.class);
 
     protected void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
         try {

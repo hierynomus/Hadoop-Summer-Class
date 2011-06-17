@@ -14,10 +14,10 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-public class PrecipitationPerMonth {
+public class TotalPrecipitationPerMonth {
     public static Job createJob(Configuration configuration, Path inputPath, Path outputPath) throws IOException {
         Job job = new Job(configuration);
-        job.setJarByClass(PrecipitationPerMonth.class);
+        job.setJarByClass(TotalPrecipitationPerMonth.class);
         job.setJobName(jobName());
 
         // one reducer will result in one CSV file and our output won't be big enough to cause problems.
@@ -27,8 +27,8 @@ public class PrecipitationPerMonth {
         job.setOutputValueClass(LongWritable.class);
 
         job.setMapperClass(PrecipitationPerMonthMapper.class);
-        job.setCombinerClass(PrecipitationPerMonthReducer.class);
-        job.setReducerClass(PrecipitationPerMonthReducer.class);
+        job.setCombinerClass(TotalPrecipitationPerMonthReducer.class);
+        job.setReducerClass(TotalPrecipitationPerMonthReducer.class);
 
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
@@ -40,7 +40,7 @@ public class PrecipitationPerMonth {
     }
 
     public static String jobName() {
-        return "precipitation-per-month";
+        return "total-precipitation-per-month";
     }
 
     public static void printJobDescription() {
