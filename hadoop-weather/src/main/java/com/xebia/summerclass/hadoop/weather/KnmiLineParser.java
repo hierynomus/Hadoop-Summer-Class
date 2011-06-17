@@ -6,10 +6,10 @@ public class KnmiLineParser {
 
 
     public static enum KnmiLineType {
-        COMMENT, EMPTY, DATA, UNPARSABLE;
+        COMMENT, DATA, EMPTY, UNPARSABLE;
     }
 
-    public static enum KnmiLineField {
+    private static enum KnmiLineField {
         STN(0), YYYYMMDD(1), RH(22);
 
         public final int position;
@@ -31,12 +31,12 @@ public class KnmiLineParser {
     public KnmiLineType parse(String line) {
         resetState();
 
-        if (line.startsWith(COMMENT_PREFIX)) {
-            return KnmiLineType.COMMENT;
-        }
-
         if (line.isEmpty()) {
             return KnmiLineType.EMPTY;
+        }
+
+        if (line.startsWith(COMMENT_PREFIX)) {
+            return KnmiLineType.COMMENT;
         }
 
         this.fields = line.split(",\\s*");
@@ -51,15 +51,23 @@ public class KnmiLineParser {
         this.fields = null;
     }
 
+    private String getStringField(KnmiLineField field) {
+        return this.fields[field.position].trim();
+    }
+
+    private long getLongField(KnmiLineField field) {
+        return Long.parseLong(this.fields[field.position]);
+    }
+
     public String getStation() {
-        return this.fields[KnmiLineField.STN.position].trim();
+        return getStringField(KnmiLineField.STN);
     }
 
     public String getDate() {
-        return this.fields[KnmiLineField.YYYYMMDD.position].trim();
+        return getStringField(KnmiLineField.YYYYMMDD);
     }
 
     public long getPrecipitation() {
-        return Long.parseLong(this.fields[KnmiLineField.RH.position]);
+        return getLongField(KnmiLineField.RH);
     }
 }
