@@ -13,7 +13,7 @@ import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TotalPrecipitationPerMonthMapReduceTest {
+public class AverageDailyPrecipitationPerMonthMapReduceTest {
     private MapReduceDriver<LongWritable, Text, Text, LongWritable, Text, LongWritable> driver;
     private List<Pair<Text, LongWritable>> output;
 
@@ -21,7 +21,7 @@ public class TotalPrecipitationPerMonthMapReduceTest {
     public void setUp() throws Exception {
         driver = new MapReduceDriver<LongWritable, Text, Text, LongWritable, Text, LongWritable>()
             .withMapper(new PrecipitationPerMonthMapper())
-            .withReducer(new TotalPrecipitationPerMonthReducer());
+            .withReducer(new AverageDailyPrecipitationPerMonthReducer());
     }
 
     @Test
@@ -35,10 +35,10 @@ public class TotalPrecipitationPerMonthMapReduceTest {
         assertThat(output.size(), is(2));
 
         assertThat(output.get(0).getFirst(), equalTo(new Text("240,201001")));
-        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(2)));
+        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(1)));
 
         assertThat(output.get(1).getFirst(), equalTo(new Text("260,201001")));
-        assertThat(output.get(1).getSecond(), equalTo(new LongWritable(9)));
+        assertThat(output.get(1).getSecond(), equalTo(new LongWritable(5)));
     }
 
     @Test
@@ -56,15 +56,15 @@ public class TotalPrecipitationPerMonthMapReduceTest {
         assertThat(output.size(), is(4));
 
         assertThat(output.get(0).getFirst(), equalTo(new Text("240,201001")));
-        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(2)));
+        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(1)));
 
         assertThat(output.get(1).getFirst(), equalTo(new Text("240,201002")));
-        assertThat(output.get(1).getSecond(), equalTo(new LongWritable(14)));
+        assertThat(output.get(1).getSecond(), equalTo(new LongWritable(7)));
 
         assertThat(output.get(2).getFirst(), equalTo(new Text("260,201001")));
-        assertThat(output.get(2).getSecond(), equalTo(new LongWritable(9)));
+        assertThat(output.get(2).getSecond(), equalTo(new LongWritable(5)));
 
         assertThat(output.get(3).getFirst(), equalTo(new Text("260,201002")));
-        assertThat(output.get(3).getSecond(), equalTo(new LongWritable(12)));
+        assertThat(output.get(3).getSecond(), equalTo(new LongWritable(6)));
     }
 }

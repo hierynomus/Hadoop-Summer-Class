@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import com.xebia.summerclass.hadoop.weather.mapreduce.rain.AverageDailyPrecipitationPerMonth;
 import com.xebia.summerclass.hadoop.weather.mapreduce.rain.TotalPrecipitationPerMonth;
 
 
@@ -27,7 +28,9 @@ public class JobRunner extends Configured implements Tool {
 
         Job job;
 
-        if (args[0].equals(TotalPrecipitationPerMonth.jobName())) {
+        if (args[0].equals(AverageDailyPrecipitationPerMonth.jobName())) {
+            job = AverageDailyPrecipitationPerMonth.createJob(getConf(), new Path(args[1]), new Path(args[2]));
+        } else if (args[0].equals(TotalPrecipitationPerMonth.jobName())) {
             job = TotalPrecipitationPerMonth.createJob(getConf(), new Path(args[1]), new Path(args[2]));
         } else {
             printUsageInfo();
@@ -45,6 +48,9 @@ public class JobRunner extends Configured implements Tool {
         out.println("  - <output> is the output file name on hdfs.");
         out.println();
         out.println("Available Jobs:");
+        out.println();
+
+        AverageDailyPrecipitationPerMonth.printJobDescription();
         out.println();
 
         TotalPrecipitationPerMonth.printJobDescription();
