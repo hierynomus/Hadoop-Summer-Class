@@ -80,7 +80,13 @@
 		    <artifactId>hadoop-mrunit</artifactId>
 		    <version>0.20.2.737</version>
             <scope>test</scope>
-		</dependency>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.6.2</version>
+        </dependency>
 		
         <dependency>
             <groupId>junit</groupId>
