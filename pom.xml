@@ -29,38 +29,15 @@
             </snapshots>
             <id>central</id>
             <name>libs-release</name>
-            <url>http://slice.fritsie.net:8081/artifactory/libs-release</url>
-        </repository>
-        <repository>
-            <snapshots />
-            <id>snapshots</id>
-            <name>libs-snapshot</name>
-            <url>http://slice.fritsie.net:8081/artifactory/libs-snapshot</url>
+            <url>https://repository.cloudera.com/content/repositories/releases/</url>
         </repository>
     </repositories>
     
-    <pluginRepositories>
-      <pluginRepository>
-        <snapshots>
-          <enabled>false</enabled>
-        </snapshots>
-        <id>central</id>
-        <name>plugins-release</name>
-        <url>http://slice.fritsie.net:8081/artifactory/plugins-release</url>
-      </pluginRepository>
-      <pluginRepository>
-        <snapshots />
-        <id>snapshots</id>
-        <name>plugins-snapshot</name>
-        <url>http://slice.fritsie.net:8081/artifactory/plugins-snapshot</url>
-      </pluginRepository>
-    </pluginRepositories>
-	
 	<dependencies>
         <dependency>
-            <groupId>com.cloudera.hadoop</groupId>
+            <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-core</artifactId>
-            <version>cdh3b4</version>
+            <version>0.20.2-cdh3u0</version>
         </dependency>
 
         <dependency>
@@ -76,9 +53,9 @@
         </dependency>
 		
 		<dependency>
-		    <groupId>com.cloudera.hadoop</groupId>
+		    <groupId>org.apache.hadoop</groupId>
 		    <artifactId>hadoop-mrunit</artifactId>
-		    <version>0.20.2.737</version>
+		    <version>0.20.2-cdh3u0</version>
             <scope>test</scope>
         </dependency>
 
