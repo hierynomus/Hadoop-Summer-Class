@@ -32,7 +32,7 @@
                     </descriptors>
                     <archive>
                         <manifest>
-                            <mainClass>com.xebia.summerclass.hadoop.skeleton.mapreduce.JobRunner</mainClass>
+                            <mainClass>com.xebia.summerclass.hadoop.skeleton.SkeletonJobRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
