@@ -25,7 +25,10 @@ public class AverageDailyPrecipitationPerMonth {
 
         // one reducer will result in one CSV file and our output won't be big enough to cause problems.
         job.setNumReduceTasks(1);
-
+        
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(LongWritable.class);
+        
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(LongWritable.class);
 
