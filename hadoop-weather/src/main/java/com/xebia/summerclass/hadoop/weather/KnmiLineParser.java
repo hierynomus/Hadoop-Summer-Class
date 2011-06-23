@@ -4,25 +4,14 @@ import org.apache.hadoop.io.Text;
 
 public class KnmiLineParser {
 
-
     public static enum KnmiLineType {
         COMMENT, DATA, EMPTY, UNPARSABLE;
     }
 
-    private static enum KnmiLineField {
-        STN(0), YYYYMMDD(1), RH(22);
-
-        public final int position;
-
-        private KnmiLineField(int position) {
-            this.position = position;
-        }
-    }
-
-    private static int EXPECTED_FIELDS = 41;
     private static String COMMENT_PREFIX = "#";
 
-    private String[] fields;
+    private int expectedFieldCount;
+    protected String[] fields;
 
     public KnmiLineType parse(Text line) {
         return this.parse(line.toString());
@@ -39,8 +28,9 @@ public class KnmiLineParser {
             return KnmiLineType.COMMENT;
         }
 
-        this.fields = line.split(",\\s*");
-        if (this.fields.length != EXPECTED_FIELDS) {
+        this.fields = line.split(",");
+        if (this.fields.length != this.expectedFieldCount) {
+            System.err.println(this.fields.length);
             return KnmiLineType.UNPARSABLE;
         }
 
@@ -51,23 +41,15 @@ public class KnmiLineParser {
         this.fields = null;
     }
 
-    private String getStringField(KnmiLineField field) {
-        return this.fields[field.position].trim();
+    protected void setExpectedFieldCount(int fields) {
+        this.expectedFieldCount = fields;
     }
 
-    private long getLongField(KnmiLineField field) {
-        return Long.parseLong(this.fields[field.position]);
+    protected String getStringField(int position) {
+        return this.fields[position].trim();
     }
 
-    public String getStation() {
-        return getStringField(KnmiLineField.STN);
-    }
-
-    public String getDate() {
-        return getStringField(KnmiLineField.YYYYMMDD);
-    }
-
-    public long getPrecipitation() {
-        return getLongField(KnmiLineField.RH);
+    protected long getLongField(int position) {
+        return Long.parseLong(this.fields[position].trim());
     }
 }

@@ -14,6 +14,7 @@ public class KnmiLineParserTest {
     @Before
     public void setUp() {
         this.parser = new KnmiLineParser();
+        this.parser.setExpectedFieldCount(41);
     }
 
     @Test
@@ -21,9 +22,9 @@ public class KnmiLineParserTest {
         String line = "  240,20100106,  186,   32,   34,   60,   17,   20,    8,   80,   17,  -28,  -66,   24,    3,   15,  -80,   24,   55,   70,  449,   29,   28,   13,   16,10036,10057,   23,10022,    4,    3,   16,   58,   14,    5,   95,   98,    4,   87,   13,    4";
         KnmiLineType result = this.parser.parse(line);
         assertEquals(KnmiLineType.DATA, result);
-        assertEquals("240", parser.getStation());
-        assertEquals("20100106", parser.getDate());
-        assertEquals(28, parser.getPrecipitation());
+        assertEquals("240", parser.getStringField(0));
+        assertEquals("20100106", parser.getStringField(1));
+        assertEquals(28, parser.getLongField(22));
     }
 
     @Test
