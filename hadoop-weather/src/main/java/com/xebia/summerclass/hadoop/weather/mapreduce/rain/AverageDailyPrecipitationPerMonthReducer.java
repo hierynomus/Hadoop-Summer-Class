@@ -12,15 +12,15 @@ public class AverageDailyPrecipitationPerMonthReducer extends Reducer<Text, Long
 
     protected void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
         try {
-            long summedValue = averageAllValues(values);
+            long average = Math.round(averageAllValues(values));
 
-            context.write(key, new LongWritable(summedValue));
+            context.write(key, new LongWritable(average));
         } catch (Exception e) {
             LOG.warn("Exception caught during call to reduce(): ", e);
         }
     }
 
-    private static long averageAllValues(Iterable<LongWritable> values) {
+    private static double averageAllValues(Iterable<LongWritable> values) {
         double sum = 0;
         long count = 0;
 
@@ -29,6 +29,6 @@ public class AverageDailyPrecipitationPerMonthReducer extends Reducer<Text, Long
             count++;
         }
 
-        return Math.round(sum / count);
+        return sum / count;
     }
 }

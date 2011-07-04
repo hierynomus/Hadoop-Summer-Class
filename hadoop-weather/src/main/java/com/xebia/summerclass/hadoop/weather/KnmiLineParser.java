@@ -29,8 +29,7 @@ public class KnmiLineParser {
         }
 
         this.fields = line.split(",");
-        if (this.fields.length != this.expectedFieldCount) {
-            System.err.println(this.fields.length);
+        if (this.fields.length < this.expectedFieldCount) {
             return KnmiLineType.UNPARSABLE;
         }
 

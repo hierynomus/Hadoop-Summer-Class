@@ -24,7 +24,7 @@ public class PrecipitationPerMonthMapperTest {
     @Test
     public void shouldExtractDataFromMeasurementLine() throws Exception {
         output = driver.withInputKey(new LongWritable(0))
-                       .withInputValue(new Text("  240,20100106,  186,   32,   34,   60,   17,   20,    8,   80,   17,  -28,  -66,   24,    3,   15,  -80,   24,   55,   70,  449,   29,   28,   13,   16,10036,10057,   23,10022,    4,    3,   16,   58,   14,    5,   95,   98,    4,   87,   13,    4"))
+                       .withInputValue(new Text("  240,20100101,    1,  300,   30,   30,   60,  130,     ,  101,    0,    0,    0,   28,10231,   83,    6,   83,   91,    0,    1,    0,    1,    0"))
                        .run();
 
         assertThat(output.size(), is(1));
@@ -52,7 +52,7 @@ public class PrecipitationPerMonthMapperTest {
     @Test
     public void shouldExtractDataWithNeglectablePrecipitationAsZero() throws Exception {
         output = driver.withInputKey(new LongWritable(0))
-                       .withInputValue(new Text("  240,20100101,   28,   42,   46,   80,    3,    0,   21,  130,    4,  -16,  -63,   22,    8,   13,  -86,   24,   50,   64,  343,    0,   -1,   -1,    1,10030,10094,   24, 9985,    3,   60,    1,   80,   15,    3,   82,   95,   24,   69,   15,    3"))
+                       .withInputValue(new Text("  240,20100101,    1,  300,   30,   30,   60,  130,     ,  101,    0,    0,    0,   -1,10231,   83,    6,   83,   91,    0,    1,    0,    1,    0"))
                        .run();
 
         assertThat(output.size(), is(1));
@@ -63,7 +63,7 @@ public class PrecipitationPerMonthMapperTest {
     @Test
     public void shouldNotExtractBlankPrecipitation() throws Exception {
         output = driver.withInputKey(new LongWritable(0))
-                        .withInputValue(new Text("  240,20100106,  186,   32,   34,   60,   17,   20,    8,   80,   17,  -28,  -66,   24,    3,   15,  -80,   24,   55,   70,  449,   29,     ,   13,   16,10036,10057,   23,10022,    4,    3,   16,   58,   14,    5,   95,   98,    4,   87,   13,    4"))
+                       .withInputValue(new Text("  240,20110701,    1,  300,   30,   30,   60,  130,     ,  101,    0,    0,    0,     ,10231,   83,    6,   83,   91,    0,    1,    0,    1,    0"))
                        .run();
 
         assertThat(output.size(), is(0));

@@ -16,8 +16,8 @@ public class PrecipitationPerMonthTestHelper {
         return new Text(
             String.format("%5d,", station) +
             datum +
-            ",    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0," +
+            ",    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0," +
             String.format("%5d,", precipitation) +
-            "    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0");
+            "    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0");
     }
 }

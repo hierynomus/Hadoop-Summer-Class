@@ -7,14 +7,14 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.log4j.Logger;
 
-import com.xebia.summerclass.hadoop.weather.KnmiDailyLineParser;
+import com.xebia.summerclass.hadoop.weather.KnmiHourlyLineParser;
 import com.xebia.summerclass.hadoop.weather.KnmiLineParser.KnmiLineType;
 
 public class PrecipitationPerMonthMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
 
     private static final Logger LOG = Logger.getLogger(PrecipitationPerMonthMapper.class);
 
-    private KnmiDailyLineParser parser = new KnmiDailyLineParser();
+    private KnmiHourlyLineParser parser = new KnmiHourlyLineParser();
 
     protected void map(LongWritable offset, Text line, Context context) throws IOException, InterruptedException {
         try {

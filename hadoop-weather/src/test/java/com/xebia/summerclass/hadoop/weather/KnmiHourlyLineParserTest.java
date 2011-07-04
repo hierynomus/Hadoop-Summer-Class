@@ -18,13 +18,16 @@ public class KnmiHourlyLineParserTest {
 
     @Test
     public void shouldParseMeasurementLine() {
-        String line = "  391,20110101,   12,  290,   30,   20,   60,   27,    7,   27,    0,   13,    8,    4,     ,     ,     ,  100,     ,     ,     ,     ,     ,";
+
+        String line ="  240,20110701,   12,  310,   70,   80,  110,  174,  135,   91,    7,  229,    1,    5,10239,   81,    6,   58,   23,    0,    1,    0,    0,    0";
+
         KnmiLineType result = this.parser.parse(line);
         assertEquals(KnmiLineType.DATA, result);
-        assertEquals("391", parser.getStation());
-        assertEquals("20110101", parser.getDate());
+        assertEquals("240", parser.getStation());
+        assertEquals("20110701", parser.getDate());
         assertEquals("12", parser.getHour());
-        assertEquals(4, parser.getPrecipitation());
+        assertEquals(5, parser.getPrecipitation());
+        assertEquals(174, parser.getTemperature());
     }
 
 }
