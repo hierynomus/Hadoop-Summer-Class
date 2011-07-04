@@ -1,6 +1,6 @@
-package com.xebia.summerclass.hadoop.weather.mapreduce.rain;
+package com.xebia.summerclass.hadoop.weather.mapreduce.temp;
 
-import static com.xebia.summerclass.hadoop.weather.mapreduce.rain.PrecipitationPerMonthTestHelper.*;
+import static com.xebia.summerclass.hadoop.weather.mapreduce.temp.TemperaturePerMonthTestHelper.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -13,22 +13,22 @@ import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TotalPrecipitationPerMonthMapReduceTest {
+public class MaxTemperaturePerMonthMapReduceTest {
     private MapReduceDriver<LongWritable, Text, Text, LongWritable, Text, LongWritable> driver;
     private List<Pair<Text, LongWritable>> output;
 
     @Before
     public void setUp() throws Exception {
         driver = new MapReduceDriver<LongWritable, Text, Text, LongWritable, Text, LongWritable>()
-            .withMapper(new PrecipitationPerMonthMapper())
-            .withReducer(new TotalPrecipitationPerMonthReducer());
+            .withMapper(new TemperaturePerMonthMapper())
+            .withReducer(new MaxTemperaturePerMonthReducer());
     }
 
     @Test
-    public void shouldProduceCorrectTotalsForDataFromOneMonth() throws Exception {
+    public void shouldProduceCorrectMaxForDataFromOneMonth() throws Exception {
         output = driver.withInput(key(0), dataLine(240, "20100101", 1))
                        .withInput(key(1), dataLine(260, "20100101", 3))
-                       .withInput(key(2), dataLine(240, "20100102", 1))
+                       .withInput(key(2), dataLine(240, "20100102", 2))
                        .withInput(key(3), dataLine(260, "20100102", 6))
                        .run();
 
@@ -38,14 +38,14 @@ public class TotalPrecipitationPerMonthMapReduceTest {
         assertThat(output.get(0).getSecond(), equalTo(new LongWritable(2)));
 
         assertThat(output.get(1).getFirst(), equalTo(new Text("260,201001")));
-        assertThat(output.get(1).getSecond(), equalTo(new LongWritable(9)));
+        assertThat(output.get(1).getSecond(), equalTo(new LongWritable(6)));
     }
 
     @Test
-    public void shouldProduceCorrectTotalsForDataFromMultipleMonths() throws Exception {
+    public void shouldProduceCorrectMaxForDataFromMultipleMonths() throws Exception {
         output = driver.withInput(key(0), dataLine(240, "20100101", 1))
                        .withInput(key(1), dataLine(260, "20100101", 3))
-                       .withInput(key(2), dataLine(240, "20100102", 1))
+                       .withInput(key(2), dataLine(240, "20100102", 2))
                        .withInput(key(3), dataLine(260, "20100102", 6))
                        .withInput(key(4), dataLine(240, "20100201", 8))
                        .withInput(key(5), dataLine(260, "20100201", 7))
@@ -59,12 +59,12 @@ public class TotalPrecipitationPerMonthMapReduceTest {
         assertThat(output.get(0).getSecond(), equalTo(new LongWritable(2)));
 
         assertThat(output.get(1).getFirst(), equalTo(new Text("240,201002")));
-        assertThat(output.get(1).getSecond(), equalTo(new LongWritable(14)));
+        assertThat(output.get(1).getSecond(), equalTo(new LongWritable(8)));
 
         assertThat(output.get(2).getFirst(), equalTo(new Text("260,201001")));
-        assertThat(output.get(2).getSecond(), equalTo(new LongWritable(9)));
+        assertThat(output.get(2).getSecond(), equalTo(new LongWritable(6)));
 
         assertThat(output.get(3).getFirst(), equalTo(new Text("260,201002")));
-        assertThat(output.get(3).getSecond(), equalTo(new LongWritable(12)));
+        assertThat(output.get(3).getSecond(), equalTo(new LongWritable(7)));
     }
 }

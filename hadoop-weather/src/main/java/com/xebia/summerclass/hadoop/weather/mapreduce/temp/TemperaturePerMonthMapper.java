@@ -1,4 +1,4 @@
-package com.xebia.summerclass.hadoop.weather.mapreduce.rain;
+package com.xebia.summerclass.hadoop.weather.mapreduce.temp;
 
 import java.io.IOException;
 
@@ -10,9 +10,9 @@ import org.apache.log4j.Logger;
 import com.xebia.summerclass.hadoop.weather.KnmiHourlyLineParser;
 import com.xebia.summerclass.hadoop.weather.KnmiLineParser.KnmiLineType;
 
-public class PrecipitationPerMonthMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
+public class TemperaturePerMonthMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
 
-    private static final Logger LOG = Logger.getLogger(PrecipitationPerMonthMapper.class);
+    private static final Logger LOG = Logger.getLogger(TemperaturePerMonthMapper.class);
 
     private KnmiHourlyLineParser parser = new KnmiHourlyLineParser();
 
@@ -33,6 +33,6 @@ public class PrecipitationPerMonthMapper extends Mapper<LongWritable, Text, Text
     }
 
     private LongWritable valueForPrecipitation() {
-        return new LongWritable(Math.max(parser.getPrecipitation(), 0));
+        return new LongWritable(parser.getTemperature());
     }
 }

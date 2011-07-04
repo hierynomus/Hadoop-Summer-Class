@@ -1,4 +1,4 @@
-package com.xebia.summerclass.hadoop.weather.mapreduce.rain;
+package com.xebia.summerclass.hadoop.weather.mapreduce.temp;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -12,13 +12,13 @@ import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PrecipitationPerMonthMapperTest {
+public class TemperaturePerMonthMapperTest {
     private MapDriver<LongWritable, Text, Text, LongWritable> driver;
     private List<Pair<Text, LongWritable>> output;
 
     @Before
     public void setUp() throws Exception {
-        driver = new MapDriver<LongWritable, Text, Text, LongWritable>(new PrecipitationPerMonthMapper());
+        driver = new MapDriver<LongWritable, Text, Text, LongWritable>(new TemperaturePerMonthMapper());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class PrecipitationPerMonthMapperTest {
 
         assertThat(output.size(), is(1));
         assertThat(output.get(0).getFirst(), equalTo(new Text("240,201001")));
-        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(28)));
+        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(130)));
     }
 
     @Test
@@ -50,20 +50,9 @@ public class PrecipitationPerMonthMapperTest {
     }
 
     @Test
-    public void shouldExtractDataWithNeglectablePrecipitationAsZero() throws Exception {
+    public void shouldNotExtractBlankTemperature() throws Exception {
         output = driver.withInputKey(new LongWritable(0))
-                       .withInputValue(new Text("  240,20100101,    1,  300,   30,   30,   60,  130,     ,  101,    0,    0,    0,   -1,10231,   83,    6,   83,   91,    0,    1,    0,    1,    0"))
-                       .run();
-
-        assertThat(output.size(), is(1));
-        assertThat(output.get(0).getFirst(), equalTo(new Text("240,201001")));
-        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(0)));
-    }
-
-    @Test
-    public void shouldNotExtractBlankPrecipitation() throws Exception {
-        output = driver.withInputKey(new LongWritable(0))
-                       .withInputValue(new Text("  240,20110701,    1,  300,   30,   30,   60,  130,     ,  101,    0,    0,    0,     ,10231,   83,    6,   83,   91,    0,    1,    0,    1,    0"))
+                       .withInputValue(new Text("  240,20110701,    1,  300,   30,   30,   60,     ,     ,  101,    0,    0,    0,     ,10231,   83,    6,   83,   91,    0,    1,    0,    1,    0"))
                        .run();
 
         assertThat(output.size(), is(0));

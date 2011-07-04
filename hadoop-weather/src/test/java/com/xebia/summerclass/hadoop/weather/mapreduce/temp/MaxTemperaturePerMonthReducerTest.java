@@ -1,4 +1,4 @@
-package com.xebia.summerclass.hadoop.weather.mapreduce.rain;
+package com.xebia.summerclass.hadoop.weather.mapreduce.temp;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -12,17 +12,17 @@ import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TotalPrecipitationPerMonthReducerTest {
+public class MaxTemperaturePerMonthReducerTest {
     private ReduceDriver<Text, LongWritable, Text, LongWritable> driver;
     private List<Pair<Text, LongWritable>> output;
 
     @Before
     public void setUp() throws Exception {
-        driver = new ReduceDriver<Text, LongWritable, Text, LongWritable>(new TotalPrecipitationPerMonthReducer());
+        driver = new ReduceDriver<Text, LongWritable, Text, LongWritable>(new MaxTemperaturePerMonthReducer());
     }
 
     @Test
-    public void shouldSumAllCounters() throws Exception {
+    public void shouldFindMaximum() throws Exception {
         output = driver.withInputKey(new Text("420,201001"))
                        .withInputValue(new LongWritable(1))
                        .withInputValue(new LongWritable(2))
@@ -30,6 +30,6 @@ public class TotalPrecipitationPerMonthReducerTest {
 
         assertThat(output.size(), is(1));
         assertThat(output.get(0).getFirst(), equalTo(new Text("420,201001")));
-        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(3)));
+        assertThat(output.get(0).getSecond(), equalTo(new LongWritable(2)));
     }
 }

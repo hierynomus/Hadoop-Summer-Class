@@ -1,4 +1,4 @@
-package com.xebia.summerclass.hadoop.weather.mapreduce.rain;
+package com.xebia.summerclass.hadoop.weather.mapreduce.temp;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -12,13 +12,15 @@ import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AverageDailyPrecipitationPerMonthReducerTest {
+import com.xebia.summerclass.hadoop.weather.mapreduce.temp.AverageTemperaturePerMonthReducer;
+
+public class AverageTemperaturePerMonthReducerTest {
     private ReduceDriver<Text, LongWritable, Text, LongWritable> driver;
     private List<Pair<Text, LongWritable>> output;
 
     @Before
     public void setUp() throws Exception {
-        driver = new ReduceDriver<Text, LongWritable, Text, LongWritable>(new AverageDailyPrecipitationPerMonthReducer());
+        driver = new ReduceDriver<Text, LongWritable, Text, LongWritable>(new AverageTemperaturePerMonthReducer());
     }
 
     @Test

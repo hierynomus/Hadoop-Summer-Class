@@ -1,4 +1,4 @@
-package com.xebia.summerclass.hadoop.weather.mapreduce.rain;
+package com.xebia.summerclass.hadoop.weather.mapreduce.temp;
 
 import static java.lang.System.*;
 
@@ -14,13 +14,13 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-public class TotalPrecipitationPerMonth {
+public class MaxTemperaturePerMonth {
     public static Job createJob(Configuration configuration, Path inputPath, Path outputPath) throws IOException {
         // the default separator char is a tab and we want to produce CSV-compatible data
         configuration.set("mapred.textoutputformat.separator", ",");
 
         Job job = new Job(configuration);
-        job.setJarByClass(TotalPrecipitationPerMonth.class);
+        job.setJarByClass(MaxTemperaturePerMonth.class);
         job.setJobName(jobName());
 
         // one reducer will result in one CSV file and our output won't be big enough to cause problems.
@@ -29,9 +29,9 @@ public class TotalPrecipitationPerMonth {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(LongWritable.class);
 
-        job.setMapperClass(PrecipitationPerMonthMapper.class);
-        job.setCombinerClass(TotalPrecipitationPerMonthReducer.class);
-        job.setReducerClass(TotalPrecipitationPerMonthReducer.class);
+        job.setMapperClass(TemperaturePerMonthMapper.class);
+        job.setCombinerClass(MaxTemperaturePerMonthReducer.class);
+        job.setReducerClass(MaxTemperaturePerMonthReducer.class);
 
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
@@ -43,16 +43,16 @@ public class TotalPrecipitationPerMonth {
     }
 
     public static String jobName() {
-        return "total-precipitation-per-month";
+        return "max-temperature-per-month";
     }
 
     public static void printJobDescription() {
         out.println(jobName() + ":");
         out.println("  Processes KNMI weatherstation measurement files into a CSV file containing the station identifier,");
-        out.println("  the month (yyyyMM) and the the total precipitation (in 0.1 mm) per month");
+        out.println("  the month (yyyyMM) and the the maximum temperature (in 0.1 degree C) per month");
         out.println("  Some sample output data:");
         out.println();
-        out.println("  # station, #month, #precipitation");
-        out.println("  210,200501,548");
+        out.println("  # station, #month, #maxtemperature");
+        out.println("  210,200501,173");
     }
 }

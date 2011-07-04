@@ -9,8 +9,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.xebia.summerclass.hadoop.weather.mapreduce.rain.AverageDailyPrecipitationPerMonth;
-import com.xebia.summerclass.hadoop.weather.mapreduce.rain.TotalPrecipitationPerMonth;
+import com.xebia.summerclass.hadoop.weather.mapreduce.temp.AverageTemperaturePerMonth;
+import com.xebia.summerclass.hadoop.weather.mapreduce.temp.MaxTemperaturePerMonth;
 
 
 public class JobRunner extends Configured implements Tool {
@@ -28,10 +28,10 @@ public class JobRunner extends Configured implements Tool {
 
         Job job;
 
-        if (args[0].equals(AverageDailyPrecipitationPerMonth.jobName())) {
-            job = AverageDailyPrecipitationPerMonth.createJob(getConf(), new Path(args[1]), new Path(args[2]));
-        } else if (args[0].equals(TotalPrecipitationPerMonth.jobName())) {
-            job = TotalPrecipitationPerMonth.createJob(getConf(), new Path(args[1]), new Path(args[2]));
+        if (args[0].equals(AverageTemperaturePerMonth.jobName())) {
+            job = AverageTemperaturePerMonth.createJob(getConf(), new Path(args[1]), new Path(args[2]));
+        } else if (args[0].equals(MaxTemperaturePerMonth.jobName())) {
+            job = MaxTemperaturePerMonth.createJob(getConf(), new Path(args[1]), new Path(args[2]));
         } else {
             printUsageInfo();
             return 1;
@@ -50,10 +50,10 @@ public class JobRunner extends Configured implements Tool {
         out.println("Available Jobs:");
         out.println();
 
-        AverageDailyPrecipitationPerMonth.printJobDescription();
+        AverageTemperaturePerMonth.printJobDescription();
         out.println();
 
-        TotalPrecipitationPerMonth.printJobDescription();
+        MaxTemperaturePerMonth.printJobDescription();
         out.println();
 
         ToolRunner.printGenericCommandUsage(err);
