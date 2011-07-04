@@ -59,4 +59,13 @@ public class PrecipitationPerMonthMapperTest {
         assertThat(output.get(0).getFirst(), equalTo(new Text("240,201001")));
         assertThat(output.get(0).getSecond(), equalTo(new LongWritable(0)));
     }
+
+    @Test
+    public void shouldNotExtractBlankPrecipitation() throws Exception {
+        output = driver.withInputKey(new LongWritable(0))
+                        .withInputValue(new Text("  240,20100106,  186,   32,   34,   60,   17,   20,    8,   80,   17,  -28,  -66,   24,    3,   15,  -80,   24,   55,   70,  449,   29,     ,   13,   16,10036,10057,   23,10022,    4,    3,   16,   58,   14,    5,   95,   98,    4,   87,   13,    4"))
+                       .run();
+
+        assertThat(output.size(), is(0));
+    }
 }

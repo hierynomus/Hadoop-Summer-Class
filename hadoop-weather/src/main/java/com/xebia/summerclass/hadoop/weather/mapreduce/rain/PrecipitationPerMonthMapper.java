@@ -21,6 +21,8 @@ public class PrecipitationPerMonthMapper extends Mapper<LongWritable, Text, Text
             if (parser.parse(line) == KnmiLineType.DATA) {
                 context.write(keyForStationAndDate(), valueForPrecipitation());
             }
+        } catch (NumberFormatException e) {
+            // ignore line with missing data
         } catch (Exception e) {
             LOG.warn("Exception caught during call to map(): ", e);
         }
