@@ -3,6 +3,7 @@ package com.xebia.summerclass.hadoop.skeleton;
 import static java.lang.System.err;
 import static java.lang.System.out;
 
+import com.xebia.summerclass.hadoop.skeleton.wk.WkJob;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.Job;
@@ -11,9 +12,9 @@ import org.apache.hadoop.util.ToolRunner;
 
 import com.xebia.summerclass.hadoop.skeleton.mapreduce.SkeletonJob;
 
-public class SkeletonJobRunner extends Configured implements Tool {
+public class JobRunner extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
-        System.exit(ToolRunner.run(new SkeletonJobRunner(), args));
+        System.exit(ToolRunner.run(new JobRunner(), args));
     }
 
     @Override
@@ -27,6 +28,8 @@ public class SkeletonJobRunner extends Configured implements Tool {
 
         if (args[0].equals(SkeletonJob.jobName())) {
             job = SkeletonJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
+        } else if (args[0].equals(WkJob.jobName())) {
+	        job = WkJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
         } else {
             printUsageInfo();
             return 1;
@@ -46,6 +49,7 @@ public class SkeletonJobRunner extends Configured implements Tool {
         out.println();
 
         SkeletonJob.printJobDescription();
+        WkJob.printJobDescription();
         out.println();
 
         ToolRunner.printGenericCommandUsage(err);

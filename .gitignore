@@ -1,0 +1,12 @@
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea
+
+# Eclipse
+.project
+.classpath
+
+# Hadoop cluster configuration
+hadoop-conf
