@@ -1,8 +1,6 @@
 package com.xebia.summerclass.hadoop.skeleton;
 
-import static java.lang.System.err;
-import static java.lang.System.out;
-
+import com.xebia.summerclass.hadoop.skeleton.mapreduce.SkeletonJob;
 import com.xebia.summerclass.hadoop.skeleton.wk.TotalClicksByUserJob;
 import com.xebia.summerclass.hadoop.skeleton.wk.WkJob;
 import org.apache.hadoop.conf.Configured;
@@ -11,7 +9,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.xebia.summerclass.hadoop.skeleton.mapreduce.SkeletonJob;
+import static java.lang.System.err;
+import static java.lang.System.out;
 
 public class JobRunner extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
@@ -30,12 +29,10 @@ public class JobRunner extends Configured implements Tool {
         if (args[0].equals(SkeletonJob.jobName())) {
             job = SkeletonJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
         } else if (args[0].equals(WkJob.jobName())) {
-	        job = WkJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
+            job = WkJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
         } else if (args[0].equals(TotalClicksByUserJob.jobName())) {
             job = TotalClicksByUserJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
-        }
-            else
-         {
+        } else {
             printUsageInfo();
             return 1;
         }
