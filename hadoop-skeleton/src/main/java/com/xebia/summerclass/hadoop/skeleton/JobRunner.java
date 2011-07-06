@@ -3,6 +3,7 @@ package com.xebia.summerclass.hadoop.skeleton;
 import static java.lang.System.err;
 import static java.lang.System.out;
 
+import com.xebia.summerclass.hadoop.skeleton.wk.TotalClicksByUserJob;
 import com.xebia.summerclass.hadoop.skeleton.wk.WkJob;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -30,7 +31,11 @@ public class JobRunner extends Configured implements Tool {
             job = SkeletonJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
         } else if (args[0].equals(WkJob.jobName())) {
 	        job = WkJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
-        } else {
+        } else if (args[0].equals(TotalClicksByUserJob.jobName())) {
+            job = TotalClicksByUserJob.createJob(getConf(), new Path(args[1]), new Path(args[2]));
+        }
+            else
+         {
             printUsageInfo();
             return 1;
         }

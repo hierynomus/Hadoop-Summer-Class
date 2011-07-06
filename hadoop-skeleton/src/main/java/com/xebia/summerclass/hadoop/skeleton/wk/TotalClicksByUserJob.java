@@ -14,13 +14,13 @@ import java.io.IOException;
 
 import static java.lang.System.out;
 
-public class WkJob {
+public class TotalClicksByUserJob {
     public static Job createJob(Configuration configuration, Path inputPath, Path outputPath) throws IOException {
         // the default separator char is a tab and we want to produce CSV-compatible data
         configuration.set("mapred.textoutputformat.separator", ",");
 
         Job job = new Job(configuration);
-        job.setJarByClass(WkJob.class);
+        job.setJarByClass(TotalClicksByUserJob.class);
         job.setJobName(jobName());
 
         // one reducer will result in one CSV file and our output won't be big enough to cause problems.
@@ -32,7 +32,7 @@ public class WkJob {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(LongWritable.class);
 
-        job.setMapperClass(TotalClicksOnUrlPerDayMapper.class);
+        job.setMapperClass(TotalClicksByUserMapper.class);
         job.setReducerClass(TotalByKeyReducer.class);
         job.setCombinerClass(TotalByKeyReducer.class);
 
@@ -46,12 +46,12 @@ public class WkJob {
     }
 
 	public static String jobName() {
-		return "total-clicks-per-day-wk";
+		return "total-clicks-per-user";
 	}
 
 	public static void printJobDescription() {
         out.println(jobName() + ":");
-        out.println("  Performs word count on the input file and creates a CSV as output containing word, count pairs.");
+        out.println("  Performs count by clicks per user.");
         out.println();
 	}
 }
